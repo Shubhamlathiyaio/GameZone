@@ -11,16 +11,21 @@ class number extends StatefulWidget {
 
 class _numberState extends State<number> {
   List<bool> b = List.filled(9, true);
-  List<int> m = [0,1,2,3,4,5,6,7,8];
+  List<int> m = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   int k = 8;
   int cnt = -1;
   reset(int n) async {
-    print('N = $n');
-    int a=-1;
+    b[8] = false;
+    int a = -1;
     for (int i = 0; i < n;) {
-      List temp=[(k!=2 && k!=5)?k+1:10,(k!=3 && k!=6)?k-1:10,k-3,k+3];
+      List temp = [
+        (k != 2 && k != 5) ? k + 1 : 10,
+        (k != 3 && k != 6) ? k - 1 : 10,
+        k - 3,
+        k + 3
+      ];
       temp.shuffle();
-      a=temp[0];
+      a = temp[0];
       // if(k!=2 && k!=5)
       // {
       //   List temp=[k+1,k-3,k+3];
@@ -33,19 +38,23 @@ class _numberState extends State<number> {
       //   temp.shuffle();
       //   a=temp[0];
       // }
-      if(a>=0 && a<=8)
-      await Future.delayed(Duration(milliseconds: 200)).then((value) {
-        print(i);
-        b=List.filled(9, true);
-        b[a]=false;
-        m[k]=m[a];
-        m[a]=8;
-        k=a;
-        i++;
-        setState(() {});
-      },);
+      if (a >= 0 && a <= 8)
+        await Future.delayed(Duration(milliseconds: 200)).then(
+          (value) {
+            print(i);
+            b = List.filled(9, true);
+            b[a] = false;
+            m[k] = m[a];
+            m[a] = 8;
+            k = a;
+            i++;
+            setState(() {});
+          },
+        );
     }
+    cnt = -1;
   }
+
   logic(int a) {
     if (((a != 2 && a != 5) && (k == a + 1 || k == a - 3 || k == a + 3)) ||
         ((a != 3 && a != 6) && (k == a - 1 || k == a - 3 || k == a + 3))) {
@@ -128,7 +137,7 @@ class _numberState extends State<number> {
           ),
           Center(
             child: ElevatedButton(
-          onPressed: () => reset(100),
+              onPressed: () => reset(100),
               child: Text('RESET'),
             ),
           )
