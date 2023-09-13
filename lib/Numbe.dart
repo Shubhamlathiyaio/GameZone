@@ -1,5 +1,3 @@
-import 'dart:ffi';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -13,32 +11,41 @@ class number extends StatefulWidget {
 
 class _numberState extends State<number> {
   List<bool> b = List.filled(9, true);
-  List<int> m = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  List<int> m = [0,1,2,3,4,5,6,7,8];
   int k = 8;
   int cnt = -1;
   reset(int n) async {
-    int a = 0;
-    for (var i = 0; i < n;) {
-      if (k != 2 && k != 5) {
-        List temp = [k + 1, k - 3, k + 3];
-        temp.shuffle();
-        a = temp[0];
-      }
-      if (k != 3 && k != 6) {
-        List temp = [k - 1, k - 3, k + 3];
-        temp.shuffle();
-        a = temp[0];
-      }
-      if (a >= 0 && a <= 8) {
-        await Future.delayed(Duration(milliseconds: 500)).then((value) => i++);
+    print('N = $n');
+    int a=-1;
+    for (int i = 0; i < n;) {
+      List temp=[(k!=2 && k!=5)?k+1:10,(k!=3 && k!=6)?k-1:10,k-3,k+3];
+      temp.shuffle();
+      a=temp[0];
+      // if(k!=2 && k!=5)
+      // {
+      //   List temp=[k+1,k-3,k+3];
+      //   temp.shuffle();
+      //   a=temp[0];
+      // }
+      // else if(k!=3 && k!=6)
+      // {
+      //   List temp=[k-1,k-3,k+3];
+      //   temp.shuffle();
+      //   a=temp[0];
+      // }
+      if(a>=0 && a<=8)
+      await Future.delayed(Duration(milliseconds: 200)).then((value) {
+        print(i);
+        b=List.filled(9, true);
+        b[a]=false;
+        m[k]=m[a];
+        m[a]=8;
+        k=a;
+        i++;
         setState(() {});
-        m[k] = m[a];
-        m[a] = 8;
-        k = a;
-      }
+      },);
     }
   }
-
   logic(int a) {
     if (((a != 2 && a != 5) && (k == a + 1 || k == a - 3 || k == a + 3)) ||
         ((a != 3 && a != 6) && (k == a - 1 || k == a - 3 || k == a + 3))) {
@@ -49,24 +56,15 @@ class _numberState extends State<number> {
       b[k] = false;
       for (cnt = 0; cnt < 9; cnt++) if (m[cnt] != cnt) break;
     }
-    cnt >= 8 ? b[8] = true : null;
+    cnt >= 8 ? b[8] = true : false;
     setState(() {});
   }
 
   @override
   void initState() {
-    for (var i = 0; i < 9;) {
-      int r = Random().nextInt(9);
-      if (!m.contains(r)) {
-        m.add(r);
-        k = r == 8 ? i : k;
-        i++;
-      }
-    }
-    b[k] = false;
-    reset(Random().nextInt(100));
+    b[8] = false;
+    reset(100);
     setState(() {});
-    logic(10);
   }
 
   @override
@@ -130,7 +128,7 @@ class _numberState extends State<number> {
           ),
           Center(
             child: ElevatedButton(
-              onPressed: () => reset(Random().nextInt(100)),
+          onPressed: () => reset(100),
               child: Text('RESET'),
             ),
           )

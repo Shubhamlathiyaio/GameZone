@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Numbe.dart';
 
+
 void main(List<String> args) {
   runApp(MaterialApp(
     home: Home(),
@@ -28,11 +29,13 @@ class _HomeState extends State<Home> {
             crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 1),
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => number(),
-                )),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return number();
+                },
+              ));
+            },
             child: Card(
               shape: ContinuousRectangleBorder(
                   borderRadius: BorderRadius.circular(50)),
@@ -45,11 +48,11 @@ class _HomeState extends State<Home> {
                         fit: BoxFit.fill)),
                 child: Container(
                   margin: EdgeInsets.only(bottom: 120, left: 5, right: 5),
-                  color: Color.fromARGB(200, 125, 60, 250),
+                  color: Color.fromARGB(255, 160, 140, 239),
                   child: ListTile(
                     title: Text('Number puzzle',
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
