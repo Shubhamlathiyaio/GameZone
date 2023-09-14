@@ -41,7 +41,6 @@ class _numberState extends State<number> {
       if (a >= 0 && a <= 8)
         await Future.delayed(Duration(milliseconds: 200)).then(
           (value) {
-            print(i);
             b = List.filled(9, true);
             b[a] = false;
             m[k] = m[a];

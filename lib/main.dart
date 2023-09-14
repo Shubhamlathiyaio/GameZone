@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gamezone/Games/Snake.dart';
 
-import 'Numbe.dart';
-
+import 'Games/Numbe.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(
@@ -30,11 +30,18 @@ class _HomeState extends State<Home> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return number();
-                },
-              ));
+              if (index == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => snack(),
+                    ));
+              } else
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return number();
+                  },
+                ));
             },
             child: Card(
               shape: ContinuousRectangleBorder(
